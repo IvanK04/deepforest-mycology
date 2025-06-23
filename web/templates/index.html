@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Phân loại nấm</title>
+    <style>
+        body {
+            background: #f7fafc;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            padding: 32px 28px 24px 28px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background: #f1f5f9;
+        }
+
+        input[type="submit"] {
+            background: #38a169;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 0;
+            width: 100%;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        input[type="submit"]:hover {
+            background: #2f855a;
+        }
+
+        .result {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .result h2 {
+            color: #3182ce;
+            margin-bottom: 12px;
+        }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .uploaded-img {
+            margin: 18px auto 0 auto;
+            display: block;
+            max-width: 220px;
+            max-height: 220px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Phân loại nấm</h1>
+        <form method="POST" enctype="multipart/form-data" id="upload-form">
+            <input type="file" name="image" accept="image/*" id="image-input" required>
+            <input type="submit" value="Dự đoán">
+        </form>
+
+        <div class="result">
+            {% if prediction %}
+            <h2>Kết quả dự đoán:</h2>
+            <div style="font-size:1.3em; color:#22543d; font-weight:bold;">{{ prediction }}</div>
+            {% endif %}
+        </div>
+
+        {% if info %}
+        <div class="info-box">
+            <h3>Thông tin:</h3>
+            <p>{{ info }}</p>
+        </div>
+        {% endif %}
+
+        {% if img_base64 %}
+        <img id="preview" class="uploaded-img" src="data:image/jpeg;base64,{{ img_base64 }}" style="display:block;">
+        {% else %}
+        <img id="preview" class="uploaded-img" style="display:none;">
+        {% endif %}
+    </div>
+    <script>
+        // Hiển thị ảnh preview khi chọn file
+        const input = document.getElementById('image-input');
+        const preview = document.getElementById('preview');
+        input.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(this.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
