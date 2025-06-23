@@ -30,7 +30,8 @@ Hyperparameter tuning for the Random Forest classifier was performed using Optun
 
 Data augmentation techniques (such as rotation, flipping, and brightness adjustment) were applied to enhance the diversity of the training dataset and improve model generalization.
 
-#Phiên bản tiếng việt:
+Phiên bản tiếng việt:
+
 Dự án này tập trung vào việc phân loại các loài nấm hoang dã thông qua hình ảnh, với mục tiêu hỗ trợ nhận dạng chính xác các loài nấm độc hại. Để đạt được hiệu quả phân loại tốt nhất, mình đã áp dụng bốn phương pháp xử lý đặc trưng khác nhau và so sánh hiệu suất của chúng.
 
 🔍 Các phương pháp sử dụng
